@@ -1,0 +1,112 @@
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./resources/assets/js/promo.js":
+/*!**************************************!*\
+  !*** ./resources/assets/js/promo.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("window.onload = function () {\n  var timeSpentOnSite = parseInt(getTimeSpentOnSite() / 1000);\n  var timeLimit = 120;\n  var show_after_seconds = 90;\n  var hide_after_seconds = 10;\n\n  if (localStorage.getItem('id_btn')) {\n    id_btn = localStorage.getItem('id_btn');\n\n    if (id_btn < 5) {\n      id_btn++;\n      localStorage.setItem('id_btn', id_btn);\n    } else {\n      id_btn = 1;\n      localStorage.setItem('id_btn', 1);\n    }\n  } else {\n    localStorage.setItem('id_btn', 1);\n  }\n\n  if (screen.width > 470) {\n    if (window.user_is_logged == 0 && timeSpentOnSite > timeLimit) {\n      setTimeout(show_promo, show_after_seconds * 1000);\n      setTimeout(hide_promo, (show_after_seconds + hide_after_seconds) * 1000);\n    }\n  } else {\n    if (window.user_is_logged == 0 && timeSpentOnSite > timeLimit) {\n      setTimeout(show_promo_mobile, show_after_seconds * 1000);\n      setTimeout(hide_promo, (show_after_seconds + hide_after_seconds) * 1000);\n    }\n  }\n};\n\nfunction getTimeSpentOnSite() {\n  timeSpentOnSite = parseInt(localStorage.getItem('timeSpentOnSite'));\n  timeSpentOnSite = isNaN(timeSpentOnSite) ? 0 : timeSpentOnSite;\n  return timeSpentOnSite;\n}\n\nfunction show_promo() {\n  id_btn = localStorage.getItem('id_btn');\n  $(\".shopify-container\" + id_btn).animate({\n    left: \"48px\",\n    easing: \"easeout\"\n  }, 500, function () {// Animation complete.\n  });\n  $(\".close_promo\" + id_btn).on(\"click\", function (e) {\n    hide_promo();\n  });\n}\n\nfunction show_promo_mobile() {\n  id_btn = localStorage.getItem('id_btn');\n  $(\".shopify-container\" + id_btn).animate({\n    left: \"10px\",\n    easing: \"easeout\"\n  }, 500, function () {// Animation complete.\n  });\n  $(\".close_promo\" + id_btn).on(\"click\", function (e) {\n    hide_promo();\n  });\n}\n\nfunction hide_promo() {\n  id_btn = localStorage.getItem('id_btn');\n  $(\".shopify-container\" + id_btn).animate({\n    left: \"-810px\",\n    easing: \"easein\"\n  }, 500, function () {// Animation complete.\n  });\n}//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvYXNzZXRzL2pzL3Byb21vLmpzPzFjZGEiXSwibmFtZXMiOlsid2luZG93Iiwib25sb2FkIiwidGltZVNwZW50T25TaXRlIiwicGFyc2VJbnQiLCJnZXRUaW1lU3BlbnRPblNpdGUiLCJ0aW1lTGltaXQiLCJzaG93X2FmdGVyX3NlY29uZHMiLCJoaWRlX2FmdGVyX3NlY29uZHMiLCJsb2NhbFN0b3JhZ2UiLCJnZXRJdGVtIiwiaWRfYnRuIiwic2V0SXRlbSIsInNjcmVlbiIsIndpZHRoIiwidXNlcl9pc19sb2dnZWQiLCJzZXRUaW1lb3V0Iiwic2hvd19wcm9tbyIsImhpZGVfcHJvbW8iLCJzaG93X3Byb21vX21vYmlsZSIsImlzTmFOIiwiJCIsImFuaW1hdGUiLCJsZWZ0IiwiZWFzaW5nIiwib24iLCJlIl0sIm1hcHBpbmdzIjoiQUFBQUEsTUFBTSxDQUFDQyxNQUFQLEdBQWdCLFlBQVU7QUFDeEIsTUFBSUMsZUFBZSxHQUFHQyxRQUFRLENBQUNDLGtCQUFrQixLQUFHLElBQXRCLENBQTlCO0FBQ0EsTUFBSUMsU0FBUyxHQUFHLEdBQWhCO0FBRUEsTUFBSUMsa0JBQWtCLEdBQUcsRUFBekI7QUFDQSxNQUFJQyxrQkFBa0IsR0FBRyxFQUF6Qjs7QUFFQSxNQUFJQyxZQUFZLENBQUNDLE9BQWIsQ0FBcUIsUUFBckIsQ0FBSixFQUFvQztBQUNsQ0MsVUFBTSxHQUFHRixZQUFZLENBQUNDLE9BQWIsQ0FBcUIsUUFBckIsQ0FBVDs7QUFDQSxRQUFJQyxNQUFNLEdBQUcsQ0FBYixFQUFnQjtBQUNkQSxZQUFNO0FBQ05GLGtCQUFZLENBQUNHLE9BQWIsQ0FBcUIsUUFBckIsRUFBOEJELE1BQTlCO0FBQ0QsS0FIRCxNQUdLO0FBQ0hBLFlBQU0sR0FBRyxDQUFUO0FBQ0FGLGtCQUFZLENBQUNHLE9BQWIsQ0FBcUIsUUFBckIsRUFBOEIsQ0FBOUI7QUFDRDtBQUNGLEdBVEQsTUFTSztBQUNISCxnQkFBWSxDQUFDRyxPQUFiLENBQXFCLFFBQXJCLEVBQThCLENBQTlCO0FBQ0Q7O0FBRUQsTUFBSUMsTUFBTSxDQUFDQyxLQUFQLEdBQWUsR0FBbkIsRUFBd0I7QUFDdEIsUUFBR2IsTUFBTSxDQUFDYyxjQUFQLElBQXlCLENBQXpCLElBQThCWixlQUFlLEdBQUdHLFNBQW5ELEVBQTZEO0FBQzNEVSxnQkFBVSxDQUFDQyxVQUFELEVBQWFWLGtCQUFrQixHQUFHLElBQWxDLENBQVY7QUFDQVMsZ0JBQVUsQ0FBQ0UsVUFBRCxFQUFhLENBQUNYLGtCQUFrQixHQUFHQyxrQkFBdEIsSUFBMEMsSUFBdkQsQ0FBVjtBQUNEO0FBQ0YsR0FMRCxNQUtLO0FBQ0gsUUFBR1AsTUFBTSxDQUFDYyxjQUFQLElBQXlCLENBQXpCLElBQThCWixlQUFlLEdBQUdHLFNBQW5ELEVBQTZEO0FBQzNEVSxnQkFBVSxDQUFDRyxpQkFBRCxFQUFvQlosa0JBQWtCLEdBQUcsSUFBekMsQ0FBVjtBQUNBUyxnQkFBVSxDQUFDRSxVQUFELEVBQWEsQ0FBQ1gsa0JBQWtCLEdBQUdDLGtCQUF0QixJQUEwQyxJQUF2RCxDQUFWO0FBQ0Q7QUFDRjtBQUVGLENBaENEOztBQWtDQSxTQUFTSCxrQkFBVCxHQUE2QjtBQUMzQkYsaUJBQWUsR0FBR0MsUUFBUSxDQUFDSyxZQUFZLENBQUNDLE9BQWIsQ0FBcUIsaUJBQXJCLENBQUQsQ0FBMUI7QUFDQVAsaUJBQWUsR0FBR2lCLEtBQUssQ0FBQ2pCLGVBQUQsQ0FBTCxHQUF5QixDQUF6QixHQUE2QkEsZUFBL0M7QUFDQSxTQUFPQSxlQUFQO0FBQ0Q7O0FBRUQsU0FBU2MsVUFBVCxHQUFxQjtBQUNqQk4sUUFBTSxHQUFHRixZQUFZLENBQUNDLE9BQWIsQ0FBcUIsUUFBckIsQ0FBVDtBQUNBVyxHQUFDLENBQUUsdUJBQXVCVixNQUF6QixDQUFELENBQW1DVyxPQUFuQyxDQUEyQztBQUN2Q0MsUUFBSSxFQUFFLE1BRGlDO0FBRXZDQyxVQUFNLEVBQUU7QUFGK0IsR0FBM0MsRUFHSyxHQUhMLEVBR1UsWUFBVyxDQUNqQjtBQUNELEdBTEg7QUFPQUgsR0FBQyxDQUFDLGlCQUFpQlYsTUFBbEIsQ0FBRCxDQUEyQmMsRUFBM0IsQ0FBOEIsT0FBOUIsRUFBc0MsVUFBQ0MsQ0FBRCxFQUFLO0FBQ3pDUixjQUFVO0FBQ1gsR0FGRDtBQUdIOztBQUNELFNBQVNDLGlCQUFULEdBQTRCO0FBQ3hCUixRQUFNLEdBQUdGLFlBQVksQ0FBQ0MsT0FBYixDQUFxQixRQUFyQixDQUFUO0FBQ0FXLEdBQUMsQ0FBRSx1QkFBdUJWLE1BQXpCLENBQUQsQ0FBbUNXLE9BQW5DLENBQTJDO0FBQ3ZDQyxRQUFJLEVBQUUsTUFEaUM7QUFFdkNDLFVBQU0sRUFBRTtBQUYrQixHQUEzQyxFQUdLLEdBSEwsRUFHVSxZQUFXLENBQ2pCO0FBQ0QsR0FMSDtBQU9FSCxHQUFDLENBQUMsaUJBQWlCVixNQUFsQixDQUFELENBQTRCYyxFQUE1QixDQUErQixPQUEvQixFQUF1QyxVQUFDQyxDQUFELEVBQUs7QUFDMUNSLGNBQVU7QUFDWCxHQUZEO0FBR0w7O0FBRUQsU0FBU0EsVUFBVCxHQUFxQjtBQUNqQlAsUUFBTSxHQUFHRixZQUFZLENBQUNDLE9BQWIsQ0FBcUIsUUFBckIsQ0FBVDtBQUNBVyxHQUFDLENBQUUsdUJBQXVCVixNQUF6QixDQUFELENBQW1DVyxPQUFuQyxDQUEyQztBQUN2Q0MsUUFBSSxFQUFFLFFBRGlDO0FBRXZDQyxVQUFNLEVBQUU7QUFGK0IsR0FBM0MsRUFHSyxHQUhMLEVBR1UsWUFBVyxDQUNqQjtBQUNELEdBTEg7QUFPSCIsImZpbGUiOiIuL3Jlc291cmNlcy9hc3NldHMvanMvcHJvbW8uanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyJ3aW5kb3cub25sb2FkID0gZnVuY3Rpb24oKXtcbiAgdmFyIHRpbWVTcGVudE9uU2l0ZSA9IHBhcnNlSW50KGdldFRpbWVTcGVudE9uU2l0ZSgpLzEwMDApO1xuICB2YXIgdGltZUxpbWl0ID0gMTIwO1xuXG4gIHZhciBzaG93X2FmdGVyX3NlY29uZHMgPSA5MFxuICB2YXIgaGlkZV9hZnRlcl9zZWNvbmRzID0gMTBcblxuICBpZiAobG9jYWxTdG9yYWdlLmdldEl0ZW0oJ2lkX2J0bicpKSB7XG4gICAgaWRfYnRuID0gbG9jYWxTdG9yYWdlLmdldEl0ZW0oJ2lkX2J0bicpO1xuICAgIGlmIChpZF9idG4gPCA1KSB7XG4gICAgICBpZF9idG4rKztcbiAgICAgIGxvY2FsU3RvcmFnZS5zZXRJdGVtKCdpZF9idG4nLGlkX2J0bik7XG4gICAgfWVsc2V7XG4gICAgICBpZF9idG4gPSAxO1xuICAgICAgbG9jYWxTdG9yYWdlLnNldEl0ZW0oJ2lkX2J0bicsMSlcbiAgICB9XG4gIH1lbHNle1xuICAgIGxvY2FsU3RvcmFnZS5zZXRJdGVtKCdpZF9idG4nLDEpO1xuICB9XG5cbiAgaWYgKHNjcmVlbi53aWR0aCA+IDQ3MCkge1xuICAgIGlmKHdpbmRvdy51c2VyX2lzX2xvZ2dlZCA9PSAwICYmIHRpbWVTcGVudE9uU2l0ZSA+IHRpbWVMaW1pdCl7XG4gICAgICBzZXRUaW1lb3V0KHNob3dfcHJvbW8sIHNob3dfYWZ0ZXJfc2Vjb25kcyAqIDEwMDApO1xuICAgICAgc2V0VGltZW91dChoaWRlX3Byb21vLCAoc2hvd19hZnRlcl9zZWNvbmRzICsgaGlkZV9hZnRlcl9zZWNvbmRzKSoxMDAwKTtcbiAgICB9XG4gIH1lbHNle1xuICAgIGlmKHdpbmRvdy51c2VyX2lzX2xvZ2dlZCA9PSAwICYmIHRpbWVTcGVudE9uU2l0ZSA+IHRpbWVMaW1pdCl7XG4gICAgICBzZXRUaW1lb3V0KHNob3dfcHJvbW9fbW9iaWxlLCBzaG93X2FmdGVyX3NlY29uZHMgKiAxMDAwKTtcbiAgICAgIHNldFRpbWVvdXQoaGlkZV9wcm9tbywgKHNob3dfYWZ0ZXJfc2Vjb25kcyArIGhpZGVfYWZ0ZXJfc2Vjb25kcykqMTAwMCk7XG4gICAgfVxuICB9XG5cbn1cblxuZnVuY3Rpb24gZ2V0VGltZVNwZW50T25TaXRlKCl7XG4gIHRpbWVTcGVudE9uU2l0ZSA9IHBhcnNlSW50KGxvY2FsU3RvcmFnZS5nZXRJdGVtKCd0aW1lU3BlbnRPblNpdGUnKSk7XG4gIHRpbWVTcGVudE9uU2l0ZSA9IGlzTmFOKHRpbWVTcGVudE9uU2l0ZSkgPyAwIDogdGltZVNwZW50T25TaXRlO1xuICByZXR1cm4gdGltZVNwZW50T25TaXRlO1xufVxuXG5mdW5jdGlvbiBzaG93X3Byb21vKCl7XG4gICAgaWRfYnRuID0gbG9jYWxTdG9yYWdlLmdldEl0ZW0oJ2lkX2J0bicpXG4gICAgJCggXCIuc2hvcGlmeS1jb250YWluZXJcIiArIGlkX2J0biApLmFuaW1hdGUoe1xuICAgICAgICBsZWZ0OiBcIjQ4cHhcIixcbiAgICAgICAgZWFzaW5nOiBcImVhc2VvdXRcIlxuICAgICAgfSwgNTAwLCBmdW5jdGlvbigpIHtcbiAgICAgICAgLy8gQW5pbWF0aW9uIGNvbXBsZXRlLlxuICAgICAgfSk7XG5cbiAgICAkKFwiLmNsb3NlX3Byb21vXCIgKyBpZF9idG4pLm9uKFwiY2xpY2tcIiwoZSk9PntcbiAgICAgIGhpZGVfcHJvbW8oKTtcbiAgICB9KTtcbn1cbmZ1bmN0aW9uIHNob3dfcHJvbW9fbW9iaWxlKCl7XG4gICAgaWRfYnRuID0gbG9jYWxTdG9yYWdlLmdldEl0ZW0oJ2lkX2J0bicpXG4gICAgJCggXCIuc2hvcGlmeS1jb250YWluZXJcIiArIGlkX2J0biApLmFuaW1hdGUoe1xuICAgICAgICBsZWZ0OiBcIjEwcHhcIixcbiAgICAgICAgZWFzaW5nOiBcImVhc2VvdXRcIlxuICAgICAgfSwgNTAwLCBmdW5jdGlvbigpIHtcbiAgICAgICAgLy8gQW5pbWF0aW9uIGNvbXBsZXRlLlxuICAgICAgfSk7XG5cbiAgICAgICQoXCIuY2xvc2VfcHJvbW9cIiArIGlkX2J0biApLm9uKFwiY2xpY2tcIiwoZSk9PntcbiAgICAgICAgaGlkZV9wcm9tbygpO1xuICAgICAgfSk7XG59XG5cbmZ1bmN0aW9uIGhpZGVfcHJvbW8oKXtcbiAgICBpZF9idG4gPSBsb2NhbFN0b3JhZ2UuZ2V0SXRlbSgnaWRfYnRuJylcbiAgICAkKCBcIi5zaG9waWZ5LWNvbnRhaW5lclwiICsgaWRfYnRuICkuYW5pbWF0ZSh7XG4gICAgICAgIGxlZnQ6IFwiLTgxMHB4XCIsXG4gICAgICAgIGVhc2luZzogXCJlYXNlaW5cIlxuICAgICAgfSwgNTAwLCBmdW5jdGlvbigpIHtcbiAgICAgICAgLy8gQW5pbWF0aW9uIGNvbXBsZXRlLlxuICAgICAgfSk7XG5cbn1cblxuXG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/assets/js/promo.js\n");
+
+/***/ }),
+
+/***/ 9:
+/*!********************************************!*\
+  !*** multi ./resources/assets/js/promo.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /Users/filippo/Documents/Soccerment/web/xvalue.ai/resources/assets/js/promo.js */"./resources/assets/js/promo.js");
+
+
+/***/ })
+
+/******/ });
